@@ -10,6 +10,8 @@ const Search = () => {
                     <span>Jane</span>
                 </div>
             </div>
+
+           
             
         </div>
     )
