@@ -1,6 +1,6 @@
 const Register = () => {
     return (
-        <div className="form-container">
+        <div className="formContainer">
             <div className="formWrapper">
                 <span className="logo">React chat app</span>
                 <span className="title">Register</span>
