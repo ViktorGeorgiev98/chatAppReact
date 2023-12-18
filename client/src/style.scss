@@ -92,6 +92,38 @@
         flex: 1;
         background-color: #3e3c61;
 
+        .chats {
+             .userChat {
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            color: white;
+            &:hover {
+                background-color: #2f2d52;
+            }
+            img {
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                object-fit: cover;
+            }
+
+
+            .userChatInfo {
+                span {
+                    font-size: 18px;
+                    font-weight: 500;
+                }
+                p {
+                    font-size: 14px;
+                    color: lightgray;
+                }
+            }
+        }
+        }
+
         .search {
             border-bottom: 1px solid gray;
 
@@ -181,36 +213,36 @@
         }
 
     }
-    .chats {
+    .chat {
         flex:2;
-        .userChat {
-            padding: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            color: white;
-            &:hover {
-                background-color: #2f2d52;
-            }
-            img {
-                width: 50px;
-                height: 50px;
-                border-radius: 50%;
-                object-fit: cover;
-            }
+        // .userChat {
+        //     padding: 10px;
+        //     display: flex;
+        //     align-items: center;
+        //     gap: 10px;
+        //     cursor: pointer;
+        //     color: white;
+        //     &:hover {
+        //         background-color: #2f2d52;
+        //     }
+        //     img {
+        //         width: 50px;
+        //         height: 50px;
+        //         border-radius: 50%;
+        //         object-fit: cover;
+        //     }
 
 
-            .userChatInfo {
-                span {
-                    font-size: 18px;
-                    font-weight: 500;
-                }
-                p {
-                    font-size: 14px;
-                    color: lightgray;
-                }
-            }
-        }
+        //     .userChatInfo {
+        //         span {
+        //             font-size: 18px;
+        //             font-weight: 500;
+        //         }
+        //         p {
+        //             font-size: 14px;
+        //             color: lightgray;
+        //         }
+        //     }
+        // }
     }
 }

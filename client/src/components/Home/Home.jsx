@@ -1,3 +1,4 @@
+import Chat from "./Chat";
 import Chats from "./Chats";
 import Sidebar from "./Sidebar";
 
@@ -6,7 +7,7 @@ const Home = () => {
         <div className="home">
             <div className="container">
                 <Sidebar />
-                <Chats />
+                <Chat />
             </div>
         </div>
     )
