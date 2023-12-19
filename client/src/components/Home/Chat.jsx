@@ -1,3 +1,6 @@
+import Input from "./Input";
+import Messages from "./Messages";
+
 const Chat = () => {
    return (
     <div className="chat">
@@ -8,8 +11,10 @@ const Chat = () => {
                 <img src="https://cdn3.iconfinder.com/data/icons/eightyshades/512/14_Add-512.png" alt="" />
                 <img src="https://cdn-icons-png.flaticon.com/512/7066/7066144.png" alt="" />
             </div>
-
+           
         </div>
+        <Messages />
+        <Input />
     </div>
    )
 }
