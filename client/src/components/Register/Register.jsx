@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase";
+import { auth } from "../../firabase";
 
 
 const Register = () => {
@@ -14,14 +14,17 @@ const Register = () => {
         const email = e.target[1].value;
         const password = e.target[2].value;
         const file = e.target[3].files[0];
+        console.log({displayName, email, password})
 
         createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             const user = userCredential.user;
+            console.log({user});
         })
         .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
+            return alert(errorMessage);
         })
 
 
