@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firabase";
+import { auth, updateProfile } from "../../firabase";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { storage } from "../../firabase";
 
 
 const Register = () => {
@@ -19,6 +21,25 @@ const Register = () => {
             const response = await createUserWithEmailAndPassword(auth, email, password);
             const user = await response.user;
             console.log({user});
+            const storageRef = ref(storage, displayName);
+
+            const uploadTask = uploadBytesResumable(storageRef, file);
+            uploadTask.on(
+                (error) => {
+                    return alert(error.message);
+                },
+                () => {
+                    getDownloadURL(uploadTask.snapshot.ref)
+                    .then(async (downloadURL) => {
+                    console.log(`File available at => ${downloadURL}`);
+                    await updateProfile(user, {
+                        displayName: displayName,
+                        photoURL: downloadURL
+                    })
+                });
+                }
+            );
+           
         } catch(e) {
             console.log(e.message);
             return alert(e.message);
