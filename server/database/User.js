@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
       imageUrl: {type: String, required: [true, 'Image url is required'],
             validate: {
                 validator: function(value) {
-                    return /^(http|https):\/\//.test
+                    return /^(http|https):\/\//.test(value)
                 },
                 message: "Image URL should start with HTTP or HTTPS"
             }}

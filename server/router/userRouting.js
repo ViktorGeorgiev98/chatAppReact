@@ -16,22 +16,22 @@ router.post('/register', async (req, res) => {
         if (userExists) {
             res.status(404);
             throw new Error("User exists!")
+        }
+           
+        const newUser = await userModel.createNewUser(displayName, email, password, imageUrl);
+        console.log({newUser});
+        if (newUser) {
+            res.status(200).send(newUser);
+            return newUser;
         } else {
-            const newUser = await userModel.createNewUser(displayName, email, password, imageUrl);
-            console.log({newUser});
-            if (newUser) {
-                res.status(200).send(newUser);
-                return newUser;
-            } else {
-                throw new Error(res.text);
-            }
+            throw new Error(res.text);
         }
        
     } catch(e) {
        const errorMessage = extractErrorMessage(e);
        console.log(errorMessage);
-       res.text = errorMessage;
-       res.send(errorMessage);
+    //    res.text = errorMessage;
+        res.status(400).json({ errorMessage });
 
     }
 })
