@@ -8,4 +8,8 @@ userModel.getAllUsers = async () => {
     return await userModel.find();
 }
 
+userModel.findUserByEmail = async (email) => {
+    return await userModel.findOne({email: email});
+}
+
 module.exports = userModel;

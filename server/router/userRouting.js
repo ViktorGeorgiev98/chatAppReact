@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const userModel = require('../services/userServices');
+const { extractErrorMessage } = require('../utils/errorHandler');
 
 router.get('/register', async (req, res) => {
     res.send(await userModel.getAllUsers());
@@ -7,22 +8,31 @@ router.get('/register', async (req, res) => {
 
 router.post('/register', async (req, res) => {
     const {displayName, email, password, imageUrl} = req.body;
-    console.log(req.body);
-    console.log({displayName, email, password, imageUrl});
+    // console.log(req.body);
+    // console.log({displayName, email, password, imageUrl});
 
     try {
-        const newUser = await userModel.createNewUser(displayName, email, password, imageUrl);
-        console.log({newUser});
-        if (res.ok) {
-            res.status(200).send(newUser);
-            return newUser;
+        const userExists = await userModel.findUserByEmail(email);
+        if (userExists) {
+            res.status(404);
+            throw new Error("User exists!")
         } else {
-            // res.status(404).send(res.statusText);
-            // throw new Error(res.statusText);
+            const newUser = await userModel.createNewUser(displayName, email, password, imageUrl);
+            console.log({newUser});
+            if (newUser) {
+                res.status(200).send(newUser);
+                return newUser;
+            } else {
+                throw new Error(res.text);
+            }
         }
+       
     } catch(e) {
-        res.send(e.message)
-        console.log(e.message);
+       const errorMessage = extractErrorMessage(e);
+       console.log(errorMessage);
+       res.text = errorMessage;
+       res.send(errorMessage);
+
     }
 })
 

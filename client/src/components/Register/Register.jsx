@@ -27,7 +27,8 @@ const Register = () => {
                 const newUser = await response.json();
                 console.log({newUser});
             } else {
-                throw new Error(response.statusText);
+                const errorMessage = await response.text();
+                throw new Error(errorMessage);
             }
         } catch(e) {
             console.log(e.message);
