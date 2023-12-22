@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+const bcrypt = require('bcrypt');
 
 
 const userSchema = new mongoose.Schema({
@@ -25,6 +25,18 @@ const userSchema = new mongoose.Schema({
                 message: "Image URL should start with HTTP or HTTPS"
             }}
 })
+
+userSchema.pre('save', async function (next) {
+    try {
+      if (!this.isModified('password')) {
+        return next(); // If the password is not modified, move to the next middleware
+      }
+      this.password = await bcrypt.hash(this.password, 10);
+      next(); // Proceed to save the document
+    } catch (error) {
+      return next(error); // Pass the error to the next middleware
+    }
+  });
 
 const userModel = new mongoose.model("User", userSchema);
 
