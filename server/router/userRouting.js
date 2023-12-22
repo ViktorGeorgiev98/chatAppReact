@@ -7,6 +7,7 @@ router.get('/register', (req, res) => {
 
 router.post('/register', async (req, res) => {
     const {displayName, email, password, imageUrl} = req.body;
+    console.log(req.body);
     console.log({displayName, email, password, imageUrl});
 
     try {
@@ -14,6 +15,7 @@ router.post('/register', async (req, res) => {
         console.log({newUser});
         if (res.ok) {
             res.status(200).send(newUser);
+            return newUser;
         } else {
             throw new Error(res.statusText);
         }
