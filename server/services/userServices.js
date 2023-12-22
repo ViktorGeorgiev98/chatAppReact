@@ -1,6 +1,7 @@
 const userModel = require('../database/User');
 
-
-exports.create = async (displayName, email, password, imageUrl) => {
-    await userModel.create(displayName, email, password, imageUrl);
+userModel.createNewUser = async (displayName, email, password, imageUrl) => {
+    return await userModel.create(displayName, email, password, imageUrl);
 }
+
+module.exports = userModel;
