@@ -1,14 +1,13 @@
 const express = require("express");
 const dbConfig = require("./database/dbConfig");
+const router = require("./router/router");
 const PORT = 3030;
 
 
 // Initialization of express
 const app = express();
 
-app.get('/', (req, res) => {
-    res.send("Hello from server");
-})
+app.use(router);
 
 // Connect to DB
 dbConfig();
