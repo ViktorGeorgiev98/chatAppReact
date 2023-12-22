@@ -1,8 +1,8 @@
 const router = require('express').Router();
 const userModel = require('../services/userServices');
 
-router.get('/register', (req, res) => {
-    res.send("Register page!")
+router.get('/register', async (req, res) => {
+    res.send(await userModel.getAllUsers());
 })
 
 router.post('/register', async (req, res) => {
@@ -17,9 +17,11 @@ router.post('/register', async (req, res) => {
             res.status(200).send(newUser);
             return newUser;
         } else {
-            throw new Error(res.statusText);
+            // res.status(404).send(res.statusText);
+            // throw new Error(res.statusText);
         }
     } catch(e) {
+        res.send(e.message)
         console.log(e.message);
     }
 })
