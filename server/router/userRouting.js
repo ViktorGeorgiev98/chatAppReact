@@ -37,26 +37,16 @@ router.post('/register', async (req, res) => {
     }
 })
 
-router.get('/', async (req, res) => {
+router.get('/login', async (req, res) => {
     res.send(await userModel.getAllUsers());
 })
 
-router.post('/', async (req, res) => {
+router.post('/login', async (req, res) => {
     const {email, password} = req.body;
 
     try {
-        const user = await userModel.findUserByEmail(email);
-
-        if (!user) {
-            throw new Error("Username with this email does not exist!");
-        }
-
-        const passwordIsValid = await bcrypt.compare(user.password, password);
-        
-        if (!passwordIsValid) {
-            throw new Error("Password is not correct!");
-        }
-
+        const token = await userServices.login(email, password);
+        res.cookie("auth", token, {httpOnly: true});
     } catch(e) {
         const errorMessage = extractErrorMessage(e);
         console.log(errorMessage);
