@@ -36,5 +36,9 @@ router.post('/register', async (req, res) => {
     }
 })
 
+router.get('/', async (req, res) => {
+    res.send(await userModel.getAllUsers());
+})
+
 
 module.exports = router;
