@@ -16,10 +16,10 @@ function App() {
     <>
     <AuthProvider>
       <Routes>
-        <Route element={<AuthGuard />}>
+        <Route element={<GuestGuard />}>
           <Route  path='/home' element={<Home />} />
         </Route>
-        <Route element={<GuestGuard />}>
+        <Route element={<AuthGuard />}>
           <Route path='/' element={<Login />} />
           <Route path='/register' element={<Register />} />
         </Route>
