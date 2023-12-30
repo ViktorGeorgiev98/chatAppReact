@@ -1,17 +1,43 @@
 import { useState } from "react";
+import { useAuth } from "../../context/AuthProvider";
+import { useNavigate } from "react-router";
 
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const { login } = useAuth();
+    const navigate = useNavigate();
 
     async function submitLoginHandler(e) {
         e.preventDefault();
         const formData = new FormData(e.target);
         const email = formData.get('email');
         const password = formData.get('password');
-
         console.log({email, password});
+       
+        try {
+            const response = await fetch('http://localhost:3030/users/login', {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({email, password})
+            });
+
+            if (response.ok) {
+                const userAndToken = await response.json();
+                console.log({userAndToken});
+                await login(userAndToken.user, userAndToken.token);
+
+            } else {
+                const errorMessage = await response.text();
+                throw new Error(errorMessage);
+            }
+        } catch(e) {
+            console.log(e.message);
+            return alert(e.message);
+        }
+        navigate('/home');
+      
     }
 
     

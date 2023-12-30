@@ -25,17 +25,16 @@ export const AuthProvider = ({ children }) => {
         localStorage.removeItem("user");
     }
 
-    const login = (userData) => {
+    const login = (user, token) => {
        
         setUser(previousUser => ({
-            username: userData.username,
-            email: userData.email,
-            password: userData.password,
-            accessToken: userData.accessToken,
-            _id: userData._id
+            username: user.username,
+            email: user.email,
+            password: user.password,
+            _id: user._id
         }));
-        localStorage.setItem('user', JSON.stringify(userData));
-        localStorage.setItem('token', userData.accessToken)
+        localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem('token', token)
     }
 
     const isAuthenticated = () => {
