@@ -45,8 +45,9 @@ router.post('/login', async (req, res) => {
     const {email, password} = req.body;
 
     try {
-        const token = await userServices.login(email, password);
-        res.cookie("auth", token, {httpOnly: true});
+        const userAndToken = await userServices.login(email, password);
+        res.cookie("auth", userAndToken.token, {httpOnly: true});
+        res.status(200).send(userAndToken);
     } catch(e) {
         const errorMessage = extractErrorMessage(e);
         console.log(errorMessage);

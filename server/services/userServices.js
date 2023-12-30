@@ -31,7 +31,8 @@ userModel.login = async (email, password) => {
         username: user.email
      }
      const token = await jwt.sign(payload, SECRET, {expiresIn: "3d"});
-     return token;
+     const userAndToken = {user, token};
+     return userAndToken;
 }
 
 module.exports = userModel;
