@@ -4,7 +4,7 @@ import { useAuth } from "../context/AuthProvider";
 const AuthGuard = (props) => {
     const { isAuthenticated } = useAuth();
 
-    if (!isAuthenticated) {
+    if (!isAuthenticated()) {
         return <Navigate to="/" />
     }
 

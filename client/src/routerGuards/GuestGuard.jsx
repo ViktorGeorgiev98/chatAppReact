@@ -4,8 +4,8 @@ import { useAuth } from "../context/AuthProvider";
 const GuestGuard = (props) => {
     const { isAuthenticated } = useAuth();
 
-    if (isAuthenticated) {
-        <Navigate to='/home' />
+    if (isAuthenticated()) {
+       return <Navigate to='/home' />
     }
 
     return (
