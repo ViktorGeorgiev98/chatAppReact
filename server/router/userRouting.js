@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const userModel = require('../services/userServices');
 const { extractErrorMessage } = require('../utils/errorHandler');
+const bcrypt = require('bcrypt');
 
 router.get('/register', async (req, res) => {
     res.send(await userModel.getAllUsers());
@@ -40,5 +41,28 @@ router.get('/', async (req, res) => {
     res.send(await userModel.getAllUsers());
 })
 
+router.post('/', async (req, res) => {
+    const {email, password} = req.body;
+
+    try {
+        const user = await userModel.findUserByEmail(email);
+
+        if (!user) {
+            throw new Error("Username with this email does not exist!");
+        }
+
+        const passwordIsValid = await bcrypt.compare(user.password, password);
+        
+        if (!passwordIsValid) {
+            throw new Error("Password is not correct!");
+        }
+
+    } catch(e) {
+        const errorMessage = extractErrorMessage(e);
+        console.log(errorMessage);
+     //    res.text = errorMessage;
+         res.status(400).json({ errorMessage });
+    }
+})
 
 module.exports = router;
