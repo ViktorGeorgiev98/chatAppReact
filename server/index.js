@@ -4,6 +4,7 @@ const router = require("./router/router");
 const PORT = 3030;
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const { auth } = require("./middleware/auth");
 
 
 // Initialization of express
@@ -13,7 +14,7 @@ app.use(bodyParser.json());
 app.use(cors({
     origin: 'http://localhost:5173' // Replace with your frontend origin
 }));
-
+// app.use(auth);
 app.use(router);
 
 // Connect to DB
