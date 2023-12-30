@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router";
 
 
 const Register = () => {
@@ -6,6 +7,7 @@ const Register = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [imageUrl, setImageUrl] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -26,6 +28,8 @@ const Register = () => {
             if (response.ok) {
                 const newUser = await response.json();
                 console.log({newUser});
+                navigate("/")
+
             } else {
                 const errorMessage = await response.text();
                 throw new Error(errorMessage);
