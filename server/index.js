@@ -5,10 +5,12 @@ const PORT = 3030;
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const { auth } = require("./middleware/auth");
+const cookieParser = require('cookie-parser')
 
 
 // Initialization of express
 const app = express();
+app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors({
