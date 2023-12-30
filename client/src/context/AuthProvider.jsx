@@ -28,9 +28,10 @@ export const AuthProvider = ({ children }) => {
     const login = (user, token) => {
        
         setUser(previousUser => ({
-            username: user.username,
+            displayName: user.displayName,
             email: user.email,
             password: user.password,
+            imageUrl: user.ImageUrl,
             _id: user._id
         }));
         localStorage.setItem('user', JSON.stringify(user));

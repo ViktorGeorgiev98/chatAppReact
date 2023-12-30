@@ -1,6 +1,7 @@
 const userModel = require('../database/User');
 const bcrypt = require('bcrypt')
 const { SECRET } = require('../constants/constants');
+const jwt = require("../lib/jwt");
 
 userModel.createNewUser = async (displayName, email, password, imageUrl) => {
     return await userModel.create({displayName, email, password, imageUrl});
@@ -16,12 +17,13 @@ userModel.findUserByEmail = async (email) => {
 
 userModel.login = async (email, password) => {
     const user = await userModel.findUserByEmail(email);
+    console.log({user});
 
     if (!user) {
         throw new Error("Username with this email does not exist!");
     }
 
-    const passwordIsValid = await bcrypt.compare(user.password, password);
+    const passwordIsValid = await bcrypt.compare(password, user.password);
     
     if (!passwordIsValid) {
         throw new Error("Password is not correct!");

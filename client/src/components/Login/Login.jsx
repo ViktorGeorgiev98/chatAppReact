@@ -15,8 +15,12 @@ const Login = () => {
         const email = formData.get('email');
         const password = formData.get('password');
         console.log({email, password});
+        
        
         try {
+            if (!email || !password) {
+                throw new Error("Email and password are mandatory!");
+            }
             const response = await fetch('http://localhost:3030/users/login', {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
