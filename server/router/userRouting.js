@@ -62,4 +62,23 @@ router.post('/logout', (req, res) => {
     res.status(204).send("Logged out!");
 })
 
+router.post('/users', async (req, res) => {
+    const { username } = req.body;
+    try {
+        const user = await userModel.findUserByUsername(username);
+        if (user) {
+            res.status(200);
+            res.send(user);
+        } else {
+            res.status(204);
+            res.send("User not found!");
+        }
+    } catch(e) {
+        const errorMessage = extractErrorMessage(e);
+        console.log(errorMessage);
+        res.status(400).json({ errorMessage });
+
+    }
+})
+
 module.exports = router;
