@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "../../context/AuthProvider";
 import { useNavigate } from "react-router";
+import { Link } from 'react-router-dom';
 
 
 const Login = () => {
@@ -55,7 +56,9 @@ const Login = () => {
                     <input onChange={(e) => setPassword(e.currentTarget.value)} type="password" placeholder="password" name="password" />
                     <button>Sign up</button>
                 </form>
-                <p>You don't have an account ? Register</p>
+                <p>You don't have an account ?
+                    <Link to="/register">Register</Link>
+                </p>
             </div>
 
         </div>
