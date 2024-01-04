@@ -23,8 +23,8 @@ function App() {
         <Route element={<GuestGuard />}>
           <Route path='/' element={<Login />} />
           <Route path='/register' element={<Register />} />
-          <Route path='/logout' element={<Logout />} />
         </Route>
+        <Route path='/logout' element={<Logout />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
     </AuthProvider>
