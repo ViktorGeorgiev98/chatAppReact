@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 const NavBar = () => {
     return (
         <div className="navbar">
@@ -5,7 +7,9 @@ const NavBar = () => {
             <div className="user">
                 <img src="https://www.mypokecard.com/en/Gallery/my/galery/m3dsSJwTlM8W.jpg" alt="" />
                 <span>John</span>
-                <button>Logout</button>
+                <Link to="/logout">
+                    <button>Logout</button>
+                </Link>
             </div>
         </div>
     )
