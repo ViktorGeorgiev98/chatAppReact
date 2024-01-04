@@ -11,6 +11,10 @@ userModel.getAllUsers = async () => {
     return await userModel.find();
 }
 
+userModel.findUserByUsername = async (username) => {
+    return await userModel.findOne({displayName: username});
+}
+
 userModel.findUserByEmail = async (email) => {
     return await userModel.findOne({email: email});
 }

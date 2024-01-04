@@ -8,6 +8,7 @@ import { Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthProvider';
 import AuthGuard from './routerGuards/AuthGuard';
 import GuestGuard from './routerGuards/GuestGuard';
+import Logout from './components/Logout/Logout';
 
 function App() {
  
@@ -23,6 +24,7 @@ function App() {
           <Route path='/' element={<Login />} />
           <Route path='/register' element={<Register />} />
         </Route>
+        <Route path='/logout' element={<Logout />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
     </AuthProvider>
