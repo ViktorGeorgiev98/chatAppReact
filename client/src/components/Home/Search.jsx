@@ -4,24 +4,50 @@ const Search = () => {
     const [username, setUsername] = useState('');
     const [user, setUser] = useState(null);
     const [err, setErr] = useState(false);
+    const [foundUser, setFoundUser] = useState(false);
 
-    const handleSearch = async () => {
+    const handleSearch = async (e) => {
+        // e.preventDefault();
         try {
-            const response = await fetch('');
+            console.log({username})
+            const response = await fetch('http://localhost:3030/users/users', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    username: username
+                })
+            });
+
+            if (response.status === 200) {
+                const foundUser = await response.json();
+                setUser(foundUser);
+                setFoundUser(true);
+                console.log({user});
+            } else if (response.status === 204) {
+                setFoundUser(false);
+                console.log("No user found");
+            } else {
+                throw new Error(response.statusMessage);
+            }
         } catch(e) {
             console.log(e.message);
             return alert(e.message);
         }   
     }
 
-    const handleKeydown = async (e) => {
-        e.preventDefault();
-        e.code === 'Enter' && handleSearch();
-    }
+    
     return (
         <div className="search">
             <div className="searchForm">
-                <input type="text" placeholder="find a user" onKeyDown={handleKeydown} onChange={(e) => setUsername(e.currentTarget.value)} />
+                <input type="text" placeholder="find a user" 
+                 onKeyDown={(e) => {
+                    if (e.key === "Enter")
+                        handleSearch();
+                    }}
+                onChange={(e) => setUsername(e.target.value)} 
+                />
             </div>
             <div className="userChat">
                 <img src="https://www.mypokecard.com/en/Gallery/my/galery/m3dsSJwTlM8W.jpg" alt="" />
