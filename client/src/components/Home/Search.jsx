@@ -26,9 +26,11 @@ const Search = () => {
                 setFoundUser(true);
                 console.log({user});
             } else if (response.status === 204) {
-                setFoundUser(false);
+                setFoundUser("Not found");
+                setUser("");
                 console.log("No user found");
             } else {
+                setUser("");
                 throw new Error(response.statusMessage);
             }
         } catch(e) {
@@ -49,12 +51,17 @@ const Search = () => {
                 onChange={(e) => setUsername(e.target.value)} 
                 />
             </div>
-            <div className="userChat">
-                <img src="https://www.mypokecard.com/en/Gallery/my/galery/m3dsSJwTlM8W.jpg" alt="" />
+            {!user && foundUser === 'Not found' &&
+                <span>No user found!</span>
+            }
+           {user && 
+             <div className="userChat">
+                <img src={user.imageUrl} alt="" />
                 <div className="userChatInfo">
-                    <span>Jane</span>
+                    <span>{user.displayName}</span>
                 </div>
             </div>
+           }
 
            
             
