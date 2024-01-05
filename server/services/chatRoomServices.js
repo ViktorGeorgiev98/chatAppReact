@@ -25,4 +25,6 @@ chatRoomModel.getAllMessagesForBothUsers = async (user1, user2) => {
 }
 
 
+
+
 module.exports = chatRoomModel;
