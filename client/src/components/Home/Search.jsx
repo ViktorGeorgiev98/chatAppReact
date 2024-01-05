@@ -9,7 +9,7 @@ const Search = () => {
     const handleSearch = async (e) => {
         // e.preventDefault();
         try {
-            console.log({username})
+            
             const response = await fetch('http://localhost:3030/users/users', {
                 method: 'POST',
                 headers: {
@@ -39,6 +39,10 @@ const Search = () => {
         }   
     }
 
+    const handleSelect = (e) => {
+        e.preventDefault();
+    }
+
     
     return (
         <div className="search">
@@ -55,7 +59,7 @@ const Search = () => {
                 <span>No user found!</span>
             }
            {user && 
-             <div className="userChat">
+             <div className="userChat" onClick={handleSelect}>
                 <img src={user.imageUrl} alt="" />
                 <div className="userChatInfo">
                     <span>{user.displayName}</span>
