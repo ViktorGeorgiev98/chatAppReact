@@ -9,7 +9,7 @@ router.post('/chatroom', async (req, res) => {
     try {
         const room = await chatRoomModel.findByRoomId(roomId);
         if (!room) {
-            const newRoom = await chatRoomModel.createNewRoom(roomId, participant1, participant2);
+            const newRoom = await chatRoomModel.createChatRoom(roomId, participant1, participant2);
             res.status(200).send(newRoom);
         } else {
             res.status(200).send(room);

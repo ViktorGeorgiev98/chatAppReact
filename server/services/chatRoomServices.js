@@ -2,8 +2,15 @@ const chatRoomModel = require('../database/User');
 
 
 chatRoomModel.createChatRoom = async (roomId, participant1, participant2) => {
-    return await chatRoomModel.create({roomId, participant1, participant2});
-}
+    return await chatRoomModel.create({
+        roomId: roomId,
+        participants: [
+            { user: participant1, messages: [] },
+            { user: participant2, messages: [] }
+        ]
+    });
+};
+
 
 chatRoomModel.findByRoomId = async (roomId) => {
     return await chatRoomModel.find({roomId: roomId})
