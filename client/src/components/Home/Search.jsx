@@ -1,10 +1,12 @@
 import { useState } from "react";
+import { useAuth } from "../../context/AuthProvider";
 
 const Search = () => {
     const [username, setUsername] = useState('');
     const [user, setUser] = useState(null);
     const [err, setErr] = useState(false);
     const [foundUser, setFoundUser] = useState(false);
+    const { getCurrentLoggedUser } = useAuth();
 
     const handleSearch = async (e) => {
         // e.preventDefault();
@@ -39,8 +41,27 @@ const Search = () => {
         }   
     }
 
-    const handleSelect = (e) => {
+    const handleSelect = async (e) => {
         e.preventDefault();
+        const participant1 = getCurrentLoggedUser()._id;
+        const participant2 = user._id;
+        const response = await fetch('http://localhost:3030/chat/chatroom', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                participant1: participant1,
+                participant2: participant2
+            })
+        })
+
+        if (response.ok) {
+            const room = await response.json();
+            console.log({room});
+        } else {
+            throw new Error(response.statusText);
+        }
     }
 
     

@@ -57,13 +57,18 @@ export const AuthProvider = ({ children }) => {
         return user.username
     }
 
+    const getCurrentLoggedUser = () => {
+        return user;
+    }
+
     const authContextValue = {
         getUsername,
         user,
         login,
         logout,
         isAuthenticated,
-        getAccessToken
+        getAccessToken,
+        getCurrentLoggedUser
     };
 
     return (
