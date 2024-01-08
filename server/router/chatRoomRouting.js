@@ -6,14 +6,18 @@ const { extractErrorMessage } = require('../utils/errorHandler');
 
 router.post('/chatroom', async (req, res) => {
     const { participant1, participant2 } = req.body;
+    console.log({participant1, participant2})
     const roomId = `${participant1}${participant2}`;
+    console.log({roomId})
     try {
         const room = await findByRoomId(roomId);
         console.log({room});
-        if (!room) {
+        if (!room._id) {
+            console.log('create room')
             const newRoom = await createChatRoom(roomId, participant1, participant2);
             res.status(200).send(newRoom);
         } else {
+            console.log('room exists')
             res.status(200).send(room);
         }
     } catch(e) {
