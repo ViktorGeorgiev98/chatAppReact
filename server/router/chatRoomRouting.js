@@ -12,7 +12,7 @@ router.post('/chatroom', async (req, res) => {
     try {
         const room = await findByRoomId(roomId);
         console.log({room});
-        if (!room._id) {
+        if (room.length === 0) {
             console.log('create room')
             const newRoom = await createChatRoom(roomId, participant1, participant2);
             res.status(200).send(newRoom);
