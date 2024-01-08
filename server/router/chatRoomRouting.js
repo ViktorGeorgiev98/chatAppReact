@@ -1,8 +1,19 @@
 const router = require('express').Router();
-const { createChatRoom, findByRoomId } = require('../services/chatRoomServices');
-const { extractErrorMessage } = require('../utils/errorHandler');
+const { createChatRoom, findByRoomId, getUserChats } = require('../services/chatRoomServices');
+const { extractErrorMessage, } = require('../utils/errorHandler');
 
-
+router.get('/userChats', async (req, res) => {
+    const { user } = req.body;
+    
+    try {
+        const userChats = await getUserChats(user);
+        res.status(200).send(userChats);
+    } catch(e) {
+        const errorMessage = extractErrorMessage(e);
+        console.log(errorMessage);
+        res.status(400).json({ errorMessage });
+    }
+})
 
 router.post('/chatroom', async (req, res) => {
     const { participant1, participant2 } = req.body;

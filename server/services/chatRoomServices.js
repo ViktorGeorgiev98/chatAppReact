@@ -11,6 +11,12 @@ exports.createChatRoom = async (roomId, participant1, participant2) => {
     });
 };
 
+exports.getUserChats = async (userId) => {
+    const allChats =  await chatRoomModel.find();
+    const userChats = allChats.filter(chat => chat.roomId.includes(userId));
+    return userChats;
+}
+
 
 exports.findByRoomId = async (roomId) => {
     return await chatRoomModel.find({roomId: roomId})
